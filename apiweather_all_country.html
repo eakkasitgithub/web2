@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Weather Information Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      /* CSS code for weather information */
+      #weather {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .weather-info {
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f0f0f0;
+        box-shadow: 2px 2px 5px #ccc;
+        text-align: center;
+      }
+      .weather-info h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .weather-info p {
+        font-size: 18px;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Information Example</h1>
+    <div id="weather"></div>
+
+    <script>
+      $.get(
+        "https://api.openweathermap.org/data/2.5/find",
+        {
+          q: "",
+          type: "accurate",
+          units: "metric",
+          appid: "0eb178775559c8ac57c420d024b5a196",
+        },
+        function (data) {
+          const weatherInfo = data.list.map(
+            (item) =>
+              `<div class="weather-info"><h3>${item.name}, ${item.sys.country}</h3><p>Temperature: ${item.main.temp}°C</p><p>Description: ${item.weather[0].description}</p></div>`
+          );
+          $("#weather").html(weatherInfo);
+        }
+      );
+    </script>
+  </body>
+</html>
