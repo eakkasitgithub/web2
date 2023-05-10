@@ -31,13 +31,13 @@
     </style>
   </head>
   <body>
-    <h1>Weather Information Example</h1>
+    <h1>Weather Information Example - Commit 15.00 - </h1>
     <label for="country-select">Select a country:</label>
     <select id="country-select">
       <option value="">--Select a country--</option>
-      <option value="US">United States</option>
-      <option value="1609350">Bangkok</option>
-      <option value="1850147">Japan Tokyo</option>
+      <option value="us">United States</option>
+      <option value="gb">United Kingdom</option>
+      <option value="jp">Japan</option>
       <!-- Add more options for other countries as needed -->
     </select>
     <button id="get-weather-btn">Get Weather</button>
@@ -49,18 +49,14 @@
           const countryCode = $("#country-select").val();
           if (countryCode !== "") {
             $.get(
-              "https://api.openweathermap.org/data/2.5/find",
+              "https://api.openweathermap.org/data/2.5/weather",
               {
                 q: `${countryCode}`,
-                type: "accurate",
                 units: "metric",
                 appid: "0eb178775559c8ac57c420d024b5a196",
               },
               function (data) {
-                const weatherInfo = data.list.map(
-                  (item) =>
-                    `<div class="weather-info"><h3>${item.name}, ${item.sys.country}</h3><p>Temperature: ${item.main.temp}°C</p><p>Description: ${item.weather[0].description}</p></div>`
-                );
+                const weatherInfo = `<div class="weather-info"><h3>${data.name}, ${data.sys.country}</h3><p>Temperature: ${data.main.temp}°C</p><p>Description: ${data.weather[0].description}</p></div>`;
                 $("#weather").html(weatherInfo);
               }
             );
