@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Weather Information Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Weather Information Example</h1>
+    <div id="weather"></div>
+
+    <script>
+      $.get(
+        "https://api.openweathermap.org/data/2.5/group",
+        {
+          id: "1609350,1850147",
+          units: "metric",
+          appid: "0eb178775559c8ac57c420d024b5a196",
+        },
+        function (data) {
+          const weatherInfo = data.list.map(
+            (item) =>
+              `<div><h3>${item.name}</h3><p>Temperature: ${item.main.temp}°C</p><p>Description: ${item.weather[0].description}</p></div>`
+          );
+          $("#weather").html(weatherInfo);
+        }
+      );
+    </script>
+  </body>
+</html>
